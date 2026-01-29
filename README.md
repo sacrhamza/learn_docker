@@ -59,7 +59,6 @@ $ docker run -p 80:80 nginx
 
 $ docker pull nginx:latest
 $ docker run --name test -d -p 9090:80 nginx:latest
-
 ```
 
 NOTES:
@@ -67,8 +66,8 @@ NOTES:
 ```bash
 
 $ docker ps
-
 ```
+
 * Run the following command to attach your shell to a new Bash process
 inside the container.
 
@@ -76,7 +75,6 @@ inside the container.
 
 $ docker exec -it test bash
 root@hey:/# 
-
 ```
 
 * to stop container
@@ -95,14 +93,22 @@ $ docker rm test
 ```bash
 
 $ docker ps -a # list all containers
-
 ```
 
 * to remove an image
 ```bash
 
 $ docker rmi test:latest
-
 ```
 
+* to know the digets of an image
+```bash
 
+$ docker images --digets image_name
+```
+
+* to know image digest before pulling it
+```bash
+
+docker buildx imagetools inspect org/repo:tag
+```
