@@ -112,3 +112,43 @@ $ docker images --digets image_name
 
 docker buildx imagetools inspect org/repo:tag
 ```
+* to remove all images and containers from your locally 
+```bash
+
+#remove all containers
+$ docker rm $(docker ps -aq)
+# remove images
+$ docker rmi $(docker images -q)
+
+# The following command deletes three images — one by name, one by short
+# ID, and one by SHA. I’ve trimmed the output for easier reading.
+$ docker rmi "${image_name)" "${image_id}" "${image_SHA}"
+```
+###### NOTE:
+
+```tex
+
+Deleting images removes them from your local repository and they’ll no
+longer show up in your docker images commands. The operation also
+deletes all directories on your local filesystem containing layer data.
+However, Docker won’t delete layers shared by multiple images until you
+delete all images that reference them.
+
+* you can execute command and exit like that
+
+```
+
+```bash
+
+docker run --rm --name name image:tag command
+```
+
+```tex
+
+Docker will prevent the delete operation if the image is being used by a
+container or referenced by more than one tag. However, you can force the
+operation with the -f flag, but you should do so with caution, as forcing
+Docker to delete an image in use by a container will untag the image and
+leave it on the system as a dangling image.
+
+```
