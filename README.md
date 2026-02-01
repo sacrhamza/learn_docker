@@ -152,3 +152,18 @@ Docker to delete an image in use by a container will untag the image and
 leave it on the system as a dangling image.
 
 ```
+
+* to create multi-architecture images using the docker minifest command
+```bash
+
+# on amd64
+$ docker build -t one:amd64
+
+# on arm
+$ docker build -t one:arm
+
+$ docker manifest create one:latest --amend one:amd64 --amend one:arm
+
+$ docker manifest push one:latest
+```
+
