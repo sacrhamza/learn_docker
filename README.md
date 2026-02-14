@@ -153,6 +153,12 @@ leave it on the system as a dangling image.
 
 ```
 
+* to pause a container run:
+```bash
+
+$ docker pause container_name
+```
+
 * to create multi-architecture images using the docker minifest command
 ```bash
 
@@ -167,3 +173,29 @@ $ docker manifest create one:latest --amend one:amd64 --amend one:arm
 $ docker manifest push one:latest
 ```
 
+* from docker deep dive page 132
+There are three ways you can tell Docker how to start an app in a container:
+    1. An Entrypoint instruction in the image
+    2. A Cmd instruction in the image 3. A CLI argument
+
+
+* you can run that command to check if there is any Entrypoint in any local image.
+```bash
+
+$ docker inspect image_name | grep Entrypoint
+
+```
+* if I build an image and there is no Entry point the default would be "/bin/bash" (just assumed not sure)
+
+* you can execute command inside a detached container like
+```bash
+
+docker run -d -it --name container alpine
+
+docker exec container ls
+
+docker exec container busybox ls
+
+# or you can start interactive shell
+docker exec -it container sh
+```
