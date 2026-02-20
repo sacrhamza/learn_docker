@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -e
 
 DOCKER_IMAGE_NAME=''
 CONTAINER_NAME=''
@@ -29,15 +28,17 @@ remove_container()
 {
   {
     docker stop "${CONTAINER_NAME}"
-    docker rm "${CONTAINER_NAME}"
+    docker rm "${CONTAINER_NAME}" -f
   }  1> /dev/null
 }
 
 exit_container()
 {
-  EXIT_CODE="$1"
-  echo "docker run -it --restart $OPTION --name $CONTAINER_NAME ${DOCKER_IMAGE_NAME} /start.sh $EXIT_CODE"
-  docker run -it --restart "$OPTION" --name "$CONTAINER_NAME" "${DOCKER_IMAGE_NAME}" /start.sh "$EXIT_CODE"
+  # EXIT_CODE="$1"
+  # echo "docker run -it --restart $OPTION --name $CONTAINER_NAME ${DOCKER_IMAGE_NAME} /start.sh $EXIT_CODE"
+  # docker run -it --restart "$OPTION" --name "$CONTAINER_NAME" "${DOCKER_IMAGE_NAME}" /start.sh "$EXIT_CODE"
+  # echo running "$@"
+  # "$@"
   status=$(check_status)
   echo -n "=> status = $status"
  if [[ "$status" != 'exited' ]] 
@@ -50,11 +51,17 @@ else
 
 run()
 {
-  exit_container 0
+  docker  run -it --restart "$OPTION" --name "$CONTAINER_NAME" "${DOCKER_IMAGE_NAME}" /start.sh 0
+  sudo pkill dockerd
+  echo 'sudo dockerd 1> /dev/null 2>/dev/null &'
+  sudo dockerd  &
+  sleep 1
+  echo $?
+  exit_container
   remove_container
 
-  exit_container 1
-  remove_container
+  # exit_container 1
+  # remove_container
 }
 
 main()
