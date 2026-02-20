@@ -83,6 +83,12 @@ root@hey:/#
 $ docker stop test
 ```
 
+* to restart a container
+```bash
+
+$ docker restart test
+```
+
 * to remove a stopped container
 ```bash
 
@@ -198,4 +204,82 @@ docker exec container busybox ls
 
 # or you can start interactive shell
 docker exec -it container sh
+```
+
+* docker inspect
+    => Description	Return low-level information on Docker objects
+    => Usage	docker inspect [OPTIONS] NAME|ID [NAME|ID...]
+
+        + -f, --format
+```bash
+   docker inspect [-f, --format]
+    ```
+```tex
+Format output using a custom template:
+'json': Print in JSON format
+'TEMPLATE': Print output using the given Go template.
+Refer to https://docs.docker.com/go/formatting/ for more information about formatting output with templates
+
+```
+
+    + -s, --size
+```bash
+docker inspect -s, --size		# Display total file sizes if the type is container
+
+# Examples: 
+$ docker run --name database -d redis
+3b2cbf074c99db4a0cad35966a9e24d7bc277f5565c17233386589029b7db273
+
+$ docker inspect --size database -f '{{ .SizeRootFs }}'
+123125760
+
+$ docker inspect --size database -f '{{ .SizeRw }}'
+8192
+
+$ docker exec database fallocate -l 1000 /newfile
+
+$ docker inspect --size database -f '{{ .SizeRw }}'
+12288
+```
+
+```tex
+
+The --size, or short-form -s, option adds two additional fields to the docker inspect output. This option only works for containers. The container doesn't have to be running, it also works for stopped containers.
+The output includes the full output of a regular docker inspect command, with the following additional fields:
+
+    SizeRootFs: the total size of all the files in the container, in bytes.
+    SizeRw: the size of the files that have been created or changed in the container, compared to it's image, in bytes.
+
+```
+
+
+    + --type
+```bash
+
+$ docker inspect --type # 	Only inspect objects of the given type
+$ docker_list_of_types=(config container image node network secret service volume task plugin)
+
+# image
+    # example
+$ docker inspect --type=image busybox
+    # or
+$ docker inspect --type image busybox
+
+
+# container
+$ docker inspect --type=container busy
+
+$ docker container inspect busy
+
+```
+* to change restart policy of a stopped or running container you can run:
+```bash
+
+$ docker update --restart (no|always|on-failure|unless-stopped)
+```
+
+```tex
+there is a useful thing to know about container related information like restart policy
+you can edit that file in /var/lib/docker/containers/${CONTAINER_ID}/hostconfig.json
+
 ```
