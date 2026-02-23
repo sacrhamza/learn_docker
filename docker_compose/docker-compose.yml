@@ -1,0 +1,10 @@
+version:  "27"
+services:
+  server:
+    image: server
+    ports:
+      - "9090:9090"
+  client:
+    image: client
+    ports:
+      - "9090:9090"

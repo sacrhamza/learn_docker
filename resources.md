@@ -5,4 +5,6 @@
 [docker inspect](https://www.kosli.com/blog/docker-inspect-explained-the-essential-guide/)
 [docker inspect official](https://docs.docker.com/reference/cli/docker/inspect/)
 [docker debug]()
+[Dockerfile reference](https://docs.docker.com/reference/dockerfile/#expose)
+
 

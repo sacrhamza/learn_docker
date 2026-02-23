@@ -283,3 +283,15 @@ there is a useful thing to know about container related information like restart
 you can edit that file in /var/lib/docker/containers/${CONTAINER_ID}/hostconfig.json
 
 ```
+
+* you can retag your image using:
+```bash
+
+$ docker tag test/test:test test/test:new
+```
+
+* You can run a docker history command against any image to see the instructions that created it.
+```bash
+
+$ docker history test:test
+```
