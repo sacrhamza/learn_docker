@@ -1,0 +1,23 @@
+FROM gcc AS builder
+
+WORKDIR /usr/local/bin
+
+COPY ./main.c .
+
+RUN gcc -static main.c -o binary
+
+FROM builder AS test
+
+COPY ./test.sh ./
+
+RUN sh test.sh
+
+# CMD ["/bin/sh", "/usr/local/bin/test.sh"]
+
+FROM scratch
+
+WORKDIR /usr/local/bin
+
+COPY --from=builder /usr/local/bin/binary .
+
+CMD ["/usr/local/bin/binary"]
