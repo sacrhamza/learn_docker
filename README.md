@@ -295,3 +295,46 @@ $ docker tag test/test:test test/test:new
 
 $ docker history test:test
 ```
+
+* you can set env variables using two methods:
+    => Dockerfile
+```Dockerfile
+
+FROM alpine
+
+# SET envirenment variable to use inside the container
+ENV FROM_ENV="hello i am from Dockerfile"
+
+RUN apk add bash
+
+# use the var FROM_ENV and FROM_CMD
+# you can set FROM_CMD using -e flag
+# when running the container, example:
+# docker run --rm -it -e FROM_CMD="hello i am from cmd" env
+CMD ["bash", "-c", "echo $FROM_ENV and $FROM_CMD"]
+
+```
+
+    => using -e flag when running the container
+```bash
+
+$ docker build -t env .
+$ docker run --rm -it -e VAR='some value' env bash -c 'echo $VAR'
+some value
+
+```
+
+* and also you can set args inside the Dockerfile
+```Dockerfile```
+
+# this is the syntax of dockerfile args
+# ARG arg='value'
+
+ARG VERSION='5.3.9'
+ARG COMMAND='apt update'
+
+FROM bash:${VERSION}
+
+RUN  ${COMMAND}
+
+CMD ["bash", "--version"]
