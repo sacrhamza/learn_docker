@@ -4,7 +4,7 @@ ARG v='edge'
 FROM alpine AS three_layers
 
 # 2
-RUN  apt install bash
+RUN  apk add bash
 
 # 3
 WORKDIR /src
