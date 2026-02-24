@@ -52,11 +52,11 @@ else
 run()
 {
   docker  run -it --restart "$OPTION" --name "$CONTAINER_NAME" "${DOCKER_IMAGE_NAME}" /start.sh 0
-  sudo pkill dockerd
-  echo 'sudo dockerd 1> /dev/null 2>/dev/null &'
-  sudo dockerd  &
-  sleep 1
-  echo $?
+  # sudo pkill dockerd
+  # echo 'sudo dockerd 1> /dev/null 2>/dev/null &'
+  # sudo dockerd  &
+  # sleep 1
+  # echo $?
   exit_container
   remove_container
 
