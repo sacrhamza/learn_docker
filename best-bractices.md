@@ -99,3 +99,14 @@ COPY --from=1 /app /app
 CMD ["/app/a.out"]
 
 ```
+
+7. use the least Privileged User
+```dockerfile
+
+FROM node:24
+
+USER node
+
+```
+
+8. scan your images for vulnerabilities
