@@ -6,5 +6,5 @@
 [docker inspect official](https://docs.docker.com/reference/cli/docker/inspect/)
 [docker debug]()
 [Dockerfile reference](https://docs.docker.com/reference/dockerfile/#expose)
-
+[build cache invalidation](https://docs.docker.com/build/cache/invalidation/)
 

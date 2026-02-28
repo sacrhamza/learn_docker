@@ -338,3 +338,9 @@ FROM bash:${VERSION}
 RUN  ${COMMAND}
 
 CMD ["bash", "--version"]
+
+* build cache
+```lex
+ Once a layer changes, then all downstream layers need to be rebuilt as well. Even if they wouldn't build anything differently, they still need to re-run.
+ If your build contains several layers and you want to ensure the build cache is reusable, order the instructions from less frequently changed to more frequently changed where possible.
+```
