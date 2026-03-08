@@ -354,3 +354,8 @@ docker build --no-cache .
 ```bash
 docker builder prune
 ```
+
+* you can check if you are in a container using this little trick:
+```tex
+check if that file /.dockerenv exist
+```
