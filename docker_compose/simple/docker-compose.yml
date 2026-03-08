@@ -1,3 +1,4 @@
+version: "2.40"
 services:
   server:
     image: server

@@ -1,0 +1,10 @@
+services:
+  hey:
+    image: bash
+    command: bash -c 'echo hey && ls /host && cat /host/* && echo $VAR $VAR1'
+    environment:
+      # from .env file
+      VAR: ${VAR}
+      VAR1: ${VAR1}
+    volumes:
+      - ./volume:/host

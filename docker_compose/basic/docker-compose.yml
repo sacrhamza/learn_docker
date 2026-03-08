@@ -1,0 +1,19 @@
+version: "2.40"
+
+services:
+
+  debian:
+    image: debian
+
+  ubuntu:
+    build: ./ubuntu
+
+  server:
+    build: ./server
+    ports:
+      - 8080:8080
+    environment:
+      - MYVAR=this is my var
+    volumes:
+      - .:/src
+
