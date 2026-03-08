@@ -1,0 +1,18 @@
+services:
+  re:
+    image: alpine
+    command: cat /data/data.txt
+    volumes:
+      - ./data:/data
+    depends_on:
+      - sender
+
+  sender:
+    image: alpine
+    command: sh -c "echo \$VAR \$VAR1 > /data/data.txt"
+    env_file: "./myvars.env"
+    environment:
+      - VAR
+      - VAR1
+    volumes:
+      - ./data:/data
