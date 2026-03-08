@@ -1,0 +1,11 @@
+services:
+  bash:
+    image: bash
+    command: bash
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+  sh:
+    image: alpine
+    command: sh
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t

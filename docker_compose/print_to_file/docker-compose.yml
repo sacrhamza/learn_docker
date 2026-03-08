@@ -9,10 +9,10 @@ services:
 
   sender:
     image: alpine
-    command: sh -c "echo \$VAR \$VAR1 > /data/data.txt"
+    command: sh -c "echo $$VAR $$VAR1 > /data/data.txt"
     env_file: "./myvars.env"
     environment:
-      - VAR
-      - VAR1
+      VAR: "my var" 
+      VAR1: "my var1"
     volumes:
       - ./data:/data

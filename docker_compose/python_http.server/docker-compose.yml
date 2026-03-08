@@ -1,0 +1,9 @@
+services:
+  httpserver:
+    # build: .
+    image: python
+    entrypoint: python3 -m http.server 9090
+    ports:
+      - "9090:9090"
+    working_dir: /bin
+
