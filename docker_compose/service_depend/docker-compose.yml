@@ -1,18 +1,25 @@
 services:
   re:
     image: alpine
-    command: cat /data/data.txt
+    command: sh -c 'cat /data/data.txt && rm /data/data.txt'
     volumes:
       - ./data:/data
     depends_on:
-      - sender
+      sender:
+        condition: service_healthy
 
   sender:
     image: alpine
-    command: sh -c "echo $$VAR $$VAR1 > /data/data.txt"
+    command: ["sh", "-c", "echo $$VAR $$VAR1 > /data/data.txt && sleep 2"]
     env_file: "./myvars.env"
     environment:
       VAR: "my var" 
       VAR1: "my var1"
     volumes:
       - ./data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "sh", "-c", "echo test > /data/test.txt"]
+      interval: 0.5s
+      timeout: 10s
+      retries: 10
+      # start_period: 300s

@@ -1,0 +1,4 @@
+services:
+  container1:
+    image: alpine
+    image: alpine

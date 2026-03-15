@@ -1,0 +1,18 @@
+services:
+  install:
+    image: debian
+    command: sh -c 'apt install /data/hyperfine.deb -y && cat /data/file.txt && rm /data/*'
+    volumes:
+      - ./data:/data
+    depends_on:
+      get:
+        condition: service_healthy
+  get:
+    image: alpine
+    command: sh -c 'wget -O /data/hyperfine.deb https://github.com/sharkdp/hyperfine/releases/download/v1.19.0/hyperfine_1.19.0_amd64.deb && sleep 1'
+    healthcheck:
+      test: ["CMD-SHELL", "-c", "echo hey > /data/file.txt"]
+      interval: 0.5s
+      retries: 0
+    volumes:
+      - ./data:/data

@@ -1,0 +1,11 @@
+
+services:
+  sh:
+    image: alpine
+    command: echo something
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    name: mynetworks
