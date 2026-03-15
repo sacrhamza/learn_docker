@@ -359,3 +359,12 @@ docker builder prune
 ```tex
 check if that file /.dockerenv exist
 ```
+
+* if you have a dockerfile like that:
+```dockerfile
+
+From image
+ENTRYPOINT ["ls"]
+
+```
+so if you try to run a container from that image all commands will be options of ls command.
