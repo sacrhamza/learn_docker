@@ -368,3 +368,40 @@ ENTRYPOINT ["ls"]
 
 ```
 so if you try to run a container from that image all commands will be options of ls command.
+
+* you can use --build-arg to pass an arg like that:
+```dockerfile
+
+FROM alpine
+ARG VAR
+RUN echo $VAR
+```
+and then build : 
+```bash
+$ docker build --build-arg VAR=something .
+```
+
+* docker build secret
+```dockerfile
+
+FROM alpine
+
+ARG CACHEBUST
+
+RUN apk add bash
+
+RUN --mount=type=secret,id=TOKEN cat /run/secrets/TOKEN > /tmp/file
+
+CMD ["cat", "/tmp/file"]
+
+```
+
+* and run it using:
+
+```bash
+# NOTE: docker use cache to speed up build but that is no something you want when dealing with secrets
+# so use --no-cache if you build and changed the file after that
+$ docker run --no-cache -t build-secret --secret id=TOKEN,src=./secrets .
+$ docker run --rm -it build-secret
+my very very important secrets
+```
