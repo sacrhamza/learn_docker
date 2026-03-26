@@ -50,3 +50,8 @@ It takes retries consecutive failures of the health check for the container to b
 ```
 
     -> 
+
+* **docker compose ls** gives a brief overview of all running
+Compose apps, including how many services are running and the
+location of the Compose file.
+
