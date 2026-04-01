@@ -1,11 +1,13 @@
 # this is the syntax of dockerfile args
 # ARG arg='value'
 
+
 ARG VERSION='5.3.9'
-ARG COMMAND='apt update'
 
 FROM bash:${VERSION}
 
+ARG COMMAND='apk add fish'
+
 RUN  ${COMMAND}
 
-CMD ["bash", "--version"]
+CMD ["fish"]
