@@ -191,7 +191,7 @@ There are three ways you can tell Docker how to start an app in a container:
 $ docker inspect image_name | grep Entrypoint
 
 ```
-* if I build an image and there is no Entry point the default would be "/bin/bash" (just assumed not sure)
+<!--not valid assumption : * if I build an image and there is no Entry point the default would be "/bin/sh" (just assumed not sure) -->
 
 * you can execute command inside a detached container like
 ```bash
@@ -405,3 +405,55 @@ $ docker run --no-cache -t build-secret --secret id=TOKEN,src=./secrets .
 $ docker run --rm -it build-secret
 my very very important secrets
 ```
+
+###### THIS SECTION IS FORE DOCKERFILE
+
+    * label
+```dockerfile
+
+# single line
+label username=" hamza "
+label mail="sacrhamza@gmail.com"
+
+ARG VAR="something"
+# multiline
+LABEL multi.label1="value1"\
+     multi.label2="value2 $VAR"
+
+```
+```tex
+Be sure to use double quotes and not single quotes. Particularly when you are using string interpolation (e.g. LABEL example="foo-$ENV_VAR"), single quotes will take the string as is without unpacking the variable's value.
+
+Labels included in base images (images in the FROM line) are inherited by your image. If a label already exists but with a different value, the most-recently-applied value overrides any previously-set value.
+```
+[source](https://docs.docker.com/reference/dockerfile/#label)
+
+- to see image labels run:
+```bash
+
+$ docker image inspect --format '{{.Config.Labels}}' image_name
+$ docker image inspect --format '{{json .Config.Labels}}' image_name # json format
+```
+
+* filter:
+```bash
+
+docker image ls --filter ''
+
+```
+
+* to check changes that have been made to image when running
+a container run:
+```bash
+
+# start a container
+$ docker run --name somelongname alpine touch /mychange
+
+# check change made for the image
+$ docker diff somelongname
+
+# get
+A /mychange
+```
+source: [docker copy on write](https://stackoverflow.com/questions/71480296/docker-copy-on-write-cow-strategy)
+
