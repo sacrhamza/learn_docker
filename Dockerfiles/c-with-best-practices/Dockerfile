@@ -9,8 +9,12 @@ COPY ./main.c ./Makefile .
 
 RUN make build
 
-FROM busybox:1.37.0-glibc
+FROM busybox:1.37.0-glibc AS app
 
 COPY --from=builder /app /app
 
+CMD ["/app/up"]
+
+FROM busybox
+COPY --from=app /app /app
 CMD ["/app/up"]
